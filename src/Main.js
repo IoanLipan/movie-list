@@ -15,7 +15,7 @@ const tempMovieData = [
     Poster:
       "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
   },
-  {
+  { 
     imdbID: "tt6751668",
     Title: "Parasite",
     Year: "2019",
