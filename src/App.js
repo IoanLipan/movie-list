@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Main, { ListBox, WatchedBox, MovieList } from "./Main";
+import Main, { Box, MovieList, WatchedSummary, WatchedMovieList } from "./Main";
 import NavBar, { Search, NumResults } from "./NavBar";
 
 const tempMovieData = [
@@ -61,10 +61,14 @@ export default function App() {
       </NavBar>
 
       <Main>
-        <ListBox>
+        <Box>
           <MovieList movies={movies} />
-        </ListBox>
-        <WatchedBox watched={watched} />
+        </Box>
+
+        <Box>
+          <WatchedSummary watched={watched} />
+          <WatchedMovieList watched={watched} />
+        </Box>
       </Main>
     </>
   );
