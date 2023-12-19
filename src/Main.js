@@ -3,16 +3,11 @@ import React, { useState } from "react";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export default function Main({ movies, watched }) {
-  return (
-    <main className="main">
-      <ListBox movies={movies} />
-      <WatchedBox watched={watched} />
-    </main>
-  );
+export default function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
-function ListBox({ movies }) {
+export function ListBox({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -23,12 +18,12 @@ function ListBox({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }
 
-function MovieList({ movies }) {
+export function MovieList({ movies }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
@@ -38,7 +33,7 @@ function MovieList({ movies }) {
   );
 }
 
-function Movie({ movie }) {
+export function Movie({ movie }) {
   return (
     <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
@@ -53,7 +48,7 @@ function Movie({ movie }) {
   );
 }
 
-function WatchedBox({ watched }) {
+export function WatchedBox({ watched }) {
   const [isOpen2, setIsOpen2] = useState(true);
 
   return (
@@ -72,7 +67,7 @@ function WatchedBox({ watched }) {
   );
 }
 
-function WatchedSummary({ watched }) {
+export function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
@@ -102,7 +97,7 @@ function WatchedSummary({ watched }) {
   );
 }
 
-function WatchedMovieList({ watched }) {
+export function WatchedMovieList({ watched }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
@@ -112,7 +107,7 @@ function WatchedMovieList({ watched }) {
   );
 }
 
-function WatchedMovie({ movie }) {
+export function WatchedMovie({ movie }) {
   return (
     <li>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />

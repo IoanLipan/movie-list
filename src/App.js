@@ -1,9 +1,6 @@
 import { useState } from "react";
-import Main from "./Main";
-import NavBar, { Logo, Search, NumResults } from "./NavBar";
-
-const average = (arr) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+import Main, { ListBox, WatchedBox, MovieList } from "./Main";
+import NavBar, { Search, NumResults } from "./NavBar";
 
 const tempMovieData = [
   {
@@ -59,11 +56,16 @@ export default function App() {
   return (
     <>
       <NavBar>
-        <Logo />
         <Search />
         <NumResults movies={movies} />
       </NavBar>
-      <Main movies={movies} watched={watched} />
+
+      <Main>
+        <ListBox>
+          <MovieList movies={movies} />
+        </ListBox>
+        <WatchedBox watched={watched} />
+      </Main>
     </>
   );
 }
