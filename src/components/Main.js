@@ -20,19 +20,19 @@ export function Box({ children }) {
   );
 }
 
-export function MovieList({ movies }) {
+export function MovieList({ movies, onSelectMovie }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
-        <Movie movie={movie} key={movie.imdbID} />
+        <Movie onSelectMovie={onSelectMovie} movie={movie} key={movie.imdbID} />
       ))}
     </ul>
   );
 }
 
-export function Movie({ movie }) {
+export function Movie({ movie, onSelectMovie }) {
   return (
-    <li>
+    <li onClick={() => onSelectMovie(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -42,6 +42,15 @@ export function Movie({ movie }) {
         </p>
       </div>
     </li>
+  );
+}
+
+export function MovieDetails({ selectedId, onCloseMovie }) {
+  return (
+    <div className="summary">
+      <button className="btn-back" onClick={onCloseMovie} aria-label="Close">&larr;</button>
+      <h2>Selected movie: {selectedId}</h2>
+    </div>
   );
 }
 

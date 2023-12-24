@@ -3,6 +3,7 @@ import { useState } from "react";
 import Main, {
   Box,
   MovieList,
+  MovieDetails,
   WatchedSummary,
   WatchedMovieList,
 } from "./components/Main";
@@ -16,7 +17,15 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+
+  function handleSelectMovie(id) {
+    setSelectedId(selectedId === id ? null : id);
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
+  }
 
   useEffect(() => {
     async function fetchMovies() {
@@ -41,7 +50,7 @@ export default function App() {
       }
     }
 
-    if(query.length < 3) {
+    if (query.length < 3) {
       setMovies([]);
       setError("");
       return;
@@ -59,13 +68,19 @@ export default function App() {
       <Main>
         <Box>
           {loading && <Loader />}
-          {!loading && !error && <MovieList movies={movies} />}
+          {!loading && !error && <MovieList onSelectMovie={handleSelectMovie} movies={movies} />}
           {error && <ErrorMessage message={error} />}
         </Box>
 
         <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedMovieList watched={watched} />
+          {selectedId ? (
+            <MovieDetails onCloseMovie={handleCloseMovie} selectedId={selectedId} />
+          ) : (
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedMovieList watched={watched} />
+            </>
+          )}
         </Box>
       </Main>
     </>
