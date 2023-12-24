@@ -26,8 +26,7 @@ export function NumResults() {
   );
 }
 
-export function Search() {
-  const [query, setQuery] = useState("");
+export function Search({ query, setQuery }) {
 
   return (
     <input
