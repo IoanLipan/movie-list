@@ -27,6 +27,10 @@ export default function App() {
     setSelectedId(null);
   }
 
+  function handleAddWatched(movie) {
+    setWatched((watched) => [...watched, movie]);
+  }
+
   useEffect(() => {
     async function fetchMovies() {
       try {
@@ -68,13 +72,20 @@ export default function App() {
       <Main>
         <Box>
           {loading && <Loader />}
-          {!loading && !error && <MovieList onSelectMovie={handleSelectMovie} movies={movies} />}
+          {!loading && !error && (
+            <MovieList onSelectMovie={handleSelectMovie} movies={movies} />
+          )}
           {error && <ErrorMessage message={error} />}
         </Box>
 
         <Box>
           {selectedId ? (
-            <MovieDetails onCloseMovie={handleCloseMovie} selectedId={selectedId} />
+            <MovieDetails
+              onCloseMovie={handleCloseMovie}
+              onAddWatched={handleAddWatched}
+              selectedId={selectedId}
+              watched={watched}
+            />
           ) : (
             <>
               <WatchedSummary watched={watched} />
