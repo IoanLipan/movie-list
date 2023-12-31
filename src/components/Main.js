@@ -63,6 +63,11 @@ export function MovieDetails({
   )?.userRating;
 
   useEffect(() => {
+    if (!movie.title) return;
+    document.title = `MOVIE | ${movie?.Title}`;
+  }, [movie]);
+
+  useEffect(() => {
     async function getMovieDetails() {
       setIsLoading(true);
       const res = await fetch(

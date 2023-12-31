@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function NavBar({ children }) {
   return (
@@ -27,7 +27,6 @@ export function NumResults() {
 }
 
 export function Search({ query, setQuery }) {
-
   return (
     <input
       className="search"
