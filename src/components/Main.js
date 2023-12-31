@@ -63,15 +63,6 @@ export function MovieDetails({
   )?.userRating;
 
   useEffect(() => {
-    if (!movie.title) return;
-    document.title = `MOVIE | ${movie?.Title}`;
-
-    return function () {
-      document.title = "usePopcorn";
-    }
-  }, [movie]);
-
-  useEffect(() => {
     async function getMovieDetails() {
       setIsLoading(true);
       const res = await fetch(
@@ -111,6 +102,16 @@ export function MovieDetails({
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
+  useEffect(() => {
+    if (!title) return;
+    document.title = `MOVIE | ${title}`;
+
+    return function () {
+      document.title = "usePopcorn";
+      // clean up effect
+    };
+  }, [title]);
 
   return (
     <div className="details">
