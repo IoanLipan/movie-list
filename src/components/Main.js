@@ -62,19 +62,6 @@ export function MovieDetails({
     (movie) => movie.imdbID === selectedId
   )?.userRating;
 
-  useEffect(() => {
-    async function getMovieDetails() {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${selectedId}`
-      );
-      const data = await res.json();
-      setMovie(data);
-      setIsLoading(false);
-    }
-    getMovieDetails();
-  }, [selectedId]);
-
   const {
     Title: title,
     Year: year,
@@ -87,6 +74,19 @@ export function MovieDetails({
     Director: director,
     Genre: genre,
   } = movie;
+
+  useEffect(() => {
+    async function getMovieDetails() {
+      setIsLoading(true);
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${selectedId}`
+      );
+      const data = await res.json();
+      setMovie(data);
+      setIsLoading(false);
+    }
+    getMovieDetails();
+  }, [selectedId]);
 
   function handleAdd() {
     const newWatchedMovie = {
@@ -102,6 +102,21 @@ export function MovieDetails({
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.key === "Escape") {
+          onCloseMovie();
+        }
+      }
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    }
+  , [onCloseMovie]);
 
   useEffect(() => {
     if (!title) return;
